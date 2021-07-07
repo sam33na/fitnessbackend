@@ -37,27 +37,8 @@ router.post('/register/user',  function (req, res) {
 })
 
 //login 
-router.post('/user/login', function (req, res) {
-    const user = req.body.username;
-    const password = req.body.password;
-    Register.findOne({ username: user }).then(function (pulledData) {
-        if (pulledData === null) {
-            return res.status(201).json({ success: false, message: "Invalid Details" }) //username false huda
-        }
-        bcryptjs.compare(password, pulledData.password, function (err, result) {
-            if (result === false) {
-                return res.status(201).json({ msg: "Invalid credentials" })//pw incorct
-            }
-            const token = jwt.sign({ userId: pulledData._id }, 'anysecretkey');
-            return res.status(200).json({ success: true, 
-                msg: "successfull authentication", 
-                token: token, 
-                role: pulledData.role,
-                data: pulledData._id })
-        })
-    })
-        .catch(function (e) {
-            res.status(500).json({ message: e })
-        })
+router.post('/login/user', function (req, res) {
+   
 })
+
 module.exports = router;
